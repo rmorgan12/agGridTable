@@ -1,0 +1,39 @@
+{
+  "name": "fwMetalsTable",
+  "version": "1.0.0",
+  "fullpage": true,
+  "size": {
+    "width": 4,
+    "height": 3
+  },
+  "mapping": [
+    {
+      "alias": "tableData",
+      "dataSetId": "701bb05d-8761-4c11-8c39-328b5063394d",
+      "fields": [
+        {
+          "alias": "consumedSpool",
+          "columnName": "Consumed Spool"
+        },
+        {
+          "alias": "spoolID",
+          "columnName": "Spool ID"
+        },
+        {
+          "alias": "processSetting",
+          "columnName": "Process Setting"
+        },
+        {
+          "alias": "maxValue",
+          "columnName": "Max Value"
+        },
+        {
+          "alias": "DisplayValue",
+          "columnName": "DisplayValue"
+        }
+      ]
+    }
+  ],
+  "fileName": "manifest.json",
+  "id": "238eac21-9ca8-4dc9-9d9c-5665c321ad3a"
+}
