@@ -1,6 +1,6 @@
 let gridApi;
 
-// Merge Rows with same Consumed Spool Value
+// Merge Rows with the same Consumed Spool Value
 const columnDefs = [
   {
     suppressStickyLabel: true,
@@ -11,6 +11,35 @@ const columnDefs = [
         colId: "consumedSpool",
         sortable: true,
         sort: 'asc',
+        rowSpan: (params) => {
+          const rowIndex = params.node.rowIndex;
+          const rowData = params.data;
+
+          let span = 1;
+          let nextRow = params.api.getDisplayedRowAtIndex(rowIndex + span);
+
+          while (nextRow && nextRow.data && nextRow.data.consumedSpool === rowData.consumedSpool) {
+            span++;
+            nextRow = params.api.getDisplayedRowAtIndex(rowIndex + span);
+          }
+
+          return span; // Return how many rows this cell should span
+        },
+        cellRenderer: (params) => {
+          const rowIndex = params.node.rowIndex;
+          const previousRow = params.api.getDisplayedRowAtIndex(rowIndex - 1);
+
+          if (previousRow && previousRow.data.consumedSpool === params.data.consumedSpool) {
+            return ''; // Hide value for subsequent rows with the same consumedSpool value
+          }
+
+          return params.value; // Display value only for the first occurrence
+        },
+        cellClassRules: {
+          'cell-red': params => params.value > 285,
+          'cell-span': params => true // Apply 'cell-span' class to all cells in the column
+        },
+        cellStyle: { textAlign: 'center' } // Center text for merged cells
       },
     ],
   },
@@ -31,7 +60,6 @@ const columnDefs = [
             columnGroupShow: "open", 
             sortable: true,
             cellClassRules: {
-              // If maxValue is above 285, apply the 'cell-red' CSS class
               'cell-red': params => params.value > 285
             }
           },
@@ -81,13 +109,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fetch and load data into the grid
   buildTable();
 });
-
-// Add a CSS class for the conditional formatting
-const style = document.createElement('style');
-style.innerHTML = `
-  .cell-red {
-    background-color: #ffcccc; /* Light red background */
-    color: black;
-  }
-`;
-document.head.appendChild(style);

@@ -1,3 +1,30 @@
-body{
+body {
   margin: 0;
+}
+
+/* Styling for cells that span multiple rows */
+.cell-span {
+  background-color: rgb(243, 245, 250); /* Light background for merged cells */
+}
+
+/* Add gridlines for all other cells */
+.ag-theme-quartz .ag-cell {
+  border-right: 1px solid #d3d3d3; /* Add right border */
+  border-bottom: 1px solid #d3d3d3; /* Add bottom border */
+}
+
+/* Ensure header cells also have borders */
+.ag-theme-quartz .ag-header-cell {
+  border-bottom: 1px solid #d3d3d3; /* Add bottom border for header cells */
+}
+
+/* Styling for cells with maxValue > 285 */
+.cell-red {
+  background-color: #ffcccc; /* Light red background */
+  color: black;
+}
+
+/* Optional: Adjust padding for better appearance */
+.ag-theme-quartz .ag-cell {
+  padding: 0 8px; /* Adjust padding if needed */
 }
